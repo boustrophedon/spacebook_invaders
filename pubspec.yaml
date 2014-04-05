@@ -1,1 +1,12 @@
 name: spacebook_invaders
+version: "0.1.0"
+description: space invaders With Friends(tm)
+authors:
+- Harry Stern <harry.stern@rutgers.edu>
+- Wayne Chang <mail@wycd.net>
+homepage: https://github.com/boustrophedon/spacebook_invaders
+dependences:
+  browser: any
+  dartemis: any
+environment:
+  sdk: ">=1.2.0"
