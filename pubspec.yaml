@@ -5,8 +5,8 @@ authors:
 - Harry Stern <harry.stern@rutgers.edu>
 - Wayne Chang <mail@wycd.net>
 homepage: https://github.com/boustrophedon/spacebook_invaders
-dependences:
-  browser: any
-  dartemis: any
+dependencies:
+  browser:
+  dartemis:
 environment:
   sdk: ">=1.2.0"
