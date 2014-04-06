@@ -11,13 +11,12 @@ class InputSystem extends IntervalEntitySystem {
 
   bool moveUp = false;
   bool moveDown = false;
+
   bool moveLeft = false;
   num  lastLeft = -1;
   num leftBarrelRolls = 0;
 
   bool moveRight = false;
-  num  lastRight = -1;
-  num rightBarrelRolls = 0; 
 
   bool fireLaser = false;
   bool zuckerbergIntensifies = false;
