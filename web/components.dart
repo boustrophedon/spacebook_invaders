@@ -1,3 +1,5 @@
+import 'package:dartemis/dartemis.dart';
+
 class Position extends Component {
   num x, y;
   Position(this.x, this.y);
