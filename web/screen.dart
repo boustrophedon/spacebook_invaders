@@ -6,10 +6,8 @@ class Screen {
 
   Screen(CanvasElement aCanvas) {
     canvas = aCanvas;
-    Rectangle rect = canvas.parent.client;
-    width = rect.width;
-    height = rect.height;
-    canvas.width = width;
+    width = canvas.width;
+    height = canvas.height;
   }
 
   void clear() {
