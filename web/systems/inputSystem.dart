@@ -6,20 +6,24 @@ class InputSystem extends IntervalEntitySystem {
   static const int LEFT = 37; // arrow left
   static const int RIGHT = 39; // arrow right
   static const int SPACE = 32; // space
+  static const int KEY_I = 73; // i
+
 
   bool moveUp = false;
   bool moveDown = false;
   bool moveLeft = false;
   bool moveRight = false;
   bool fireLaser = false;
+  bool zuckerbergIntensifies = false;
 
   ComponentMapper<Velocity> velocityMapper;
   ComponentMapper<PlayerLaser> laserMapper;
+  ComponentMapper<Intensity> intensityMapper;
   TagManager tagManager;
 
   CanvasElement canvas;
 
-  InputSystem(Screen screen) : super(20, Aspect.getAspectForAllOf([Velocity, PlayerLaser])) {
+  InputSystem(Screen screen) : super(20, Aspect.getAspectForAllOf([Velocity, PlayerLaser, Intensity])) {
     canvas = screen.canvas;
   }
 
@@ -34,6 +38,10 @@ class InputSystem extends IntervalEntitySystem {
     Entity player = tagManager.getEntity(TAG_PLAYER);
     Velocity velocity = velocityMapper.get(player);
     PlayerLaser laser = laserMapper.get(player);
+
+
+    Entity zuck = tagManager.getEntity(TAG_ZUCKER);
+    Intensity i = intensityMapper.get(zuck);
 
     num moveSpeed = 200;
 
@@ -58,6 +66,12 @@ class InputSystem extends IntervalEntitySystem {
       fireLaser = false;
     }
 
+    if (zuckerbergIntensifies) {
+      i.i1 += 10;
+      i.i2 += 38;
+      zuckerbergIntensifies = false;
+    }
+
   }
 
   void handleKeyDown(KeyboardEvent e) {
@@ -72,6 +86,8 @@ class InputSystem extends IntervalEntitySystem {
       moveRight = true;
     } else if (keyCode == SPACE) {
       fireLaser = true;
+    } else if (keyCode == KEY_I) {
+      zuckerbergIntensifies = true;
     }
 
   }

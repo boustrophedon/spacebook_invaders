@@ -37,3 +37,8 @@ class Sprite extends Component {
   ImageElement img;
   Sprite(this.img);
 }
+
+class Intensity extends Component {
+  num i1, i2, i3;
+  Intensity(this.i1, this.i2, this.i3);
+}

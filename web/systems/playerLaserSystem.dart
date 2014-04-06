@@ -31,7 +31,7 @@ class PlayerLaserSystem extends EntityProcessingSystem {
 
   void fireLaser(Entity player, Position pos, PlayerLaser laser) {
     Entity pew = world.createEntity();
-    pew.addComponent(new Species('laserBeam'));
+    pew.addComponent(new Species('laser'));
     pew.addComponent(new Position(pos.x+16, pos.y+20));
     pew.addComponent(new Velocity(0, -laserSpeed));
     pew.addComponent(new Acceleration(0, 0));

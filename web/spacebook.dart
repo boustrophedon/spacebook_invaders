@@ -2,12 +2,12 @@ library spacebook;
 
 import 'dart:async';
 import 'dart:html';
-import 'dart:math';
+import 'dart:math' as math;
 
 // import 'package:dartemis/dartemis.dart';
 import "package:dartemis/dartemis_mirrors.dart";
 
-@MirrorsUsed(targets: const [InputSystem, MovementSystem, BackgroundRenderSystem])
+@MirrorsUsed(targets: const [InputSystem, MovementSystem, BackgroundRenderSystem, InputSystem, PlayerLaserSystem, CollisionSystem, EnemySpawnSystem, RenderSystem])
 
 import "dart:mirrors";
 
@@ -16,12 +16,14 @@ part 'screen.dart';
 part 'components.dart';
 part 'systems/inputSystem.dart';
 part 'systems/enemySpawnSystem.dart';
+part 'systems/markZuckerbergSystem.dart';
 part 'systems/collisionSystem.dart';
 part 'systems/movementSystem.dart';
 part 'systems/playerLaserSystem.dart';
 part 'systems/renderSystem.dart';
 
 const String TAG_PLAYER = "player";
+const String TAG_ZUCKER = "mark";
 
 void main() {
   CanvasElement canvas = querySelector("#area");
@@ -67,7 +69,8 @@ class Spacebook {
     world.addSystem(new InputSystem(screen));
     world.addSystem(new EnemySpawnSystem(zuck_image));
     world.addSystem(new PlayerLaserSystem());
-    world.addSystem(new MovementSystem());
+    world.addSystem(new MovementSystem(screen));
+    world.addSystem(new MarkZuckerbergSystem());
     world.addSystem(new CollisionSystem(screen));
     world.addSystem(new BackgroundRenderSystem(screen));
     world.addSystem(new RenderSystem(screen));
