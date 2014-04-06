@@ -21,9 +21,16 @@ class Acceleration extends Component {
   Acceleration(this.x, this.y);
 }
 
-class Color extends Component {
-  num r, g, b;
-  Color(this.r, this.g, this.b);
+class PlayerLaser extends Component {
+  num damage;
+  bool firing;
+  num timeout;
+  PlayerLaser(this.damage, this.firing, this.timeout);
+}
+
+class Damage extends Component {
+  num damage;
+  Damage(this.damage);
 }
 
 class Sprite extends Component {

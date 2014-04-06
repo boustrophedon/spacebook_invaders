@@ -18,6 +18,7 @@ part 'components.dart';
 part 'systems/inputSystem.dart';
 part 'systems/collisionSystem.dart';
 part 'systems/movementSystem.dart';
+part 'systems/playerLaserSystem.dart';
 part 'systems/renderSystem.dart';
 
 const String TAG_PLAYER = "player";
@@ -25,7 +26,7 @@ const String TAG_PLAYER = "player";
 void main() {
   CanvasElement canvas = querySelector("#area");
   Spacebook spacebook = new Spacebook(canvas);
-  spacebook.start();
+  spacebook.load_images().onLoad.listen((e) => spacebook.start());
 }
 
 class Spacebook {
@@ -34,6 +35,7 @@ class Spacebook {
   num lastTime;
 
   String player_facebook;
+  ImageElement player_image;
 
   Spacebook(CanvasElement canvas) {
     screen = new Screen(canvas);
@@ -41,22 +43,27 @@ class Spacebook {
     lastTime = 0;
     
     player_facebook = 'hcstern'; // obviously fix this.
-
   }
 
+  ImageElement load_images() {
+    player_image = new ImageElement(src: 'http://graph.facebook.com/$player_facebook/picture');
+    return player_image; 
+  }
   void start() {
     Entity player = world.createEntity();
+    player.addComponent(new Species('player'));
     player.addComponent(new Position(screen.width~/2, screen.height~/2));
     player.addComponent(new Velocity(0, 0));
     player.addComponent(new Acceleration(0, 0));
-    player.addComponent(new Color(255, 0, 0));
-    player.addComponent(new Sprite(new ImageElement(src: 'http://graph.facebook.com/$player_facebook/picture')));
+    player.addComponent(new PlayerLaser(5, false, 0)); 
+    player.addComponent(new Sprite(player_image));
     player.addToWorld();
     TagManager tagManager = new TagManager();
     tagManager.register(player, TAG_PLAYER);
     world.addManager(tagManager);
 
     world.addSystem(new InputSystem(screen));
+    world.addSystem(new PlayerLaserSystem());
     world.addSystem(new MovementSystem());
     world.addSystem(new CollisionSystem(screen));
     world.addSystem(new BackgroundRenderSystem(screen));
