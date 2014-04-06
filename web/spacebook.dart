@@ -33,10 +33,15 @@ class Spacebook {
   World world;
   num lastTime;
 
+  String player_facebook;
+
   Spacebook(CanvasElement canvas) {
     screen = new Screen(canvas);
     world = new World();
     lastTime = 0;
+    
+    player_facebook = 'hcstern'; // obviously fix this.
+
   }
 
   void start() {
@@ -45,7 +50,7 @@ class Spacebook {
     player.addComponent(new Velocity(0, 0));
     player.addComponent(new Acceleration(0, 0));
     player.addComponent(new Color(255, 0, 0));
-    player.addComponent(new Sprite(new ImageElement(src: 'assets/spacebook_invaders/propic.jpg'))); // this should be requested via facebook api
+    player.addComponent(new Sprite(new ImageElement(src: 'http://graph.facebook.com/$player_facebook/picture')));
     player.addToWorld();
     TagManager tagManager = new TagManager();
     tagManager.register(player, TAG_PLAYER);
