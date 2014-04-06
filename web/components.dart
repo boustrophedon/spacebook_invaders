@@ -22,6 +22,7 @@ class Color extends Component {
 }
 
 class Sprite extends Component {
-  ImageElement sprite;
-  Sprite(this.sprite);
+  //ImageElement sprite;
+  //Sprite(this.sprite);
+  Sprite();
 }

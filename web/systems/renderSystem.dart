@@ -34,20 +34,20 @@ class RenderSystem extends EntityProcessingSystem {
   Screen screen;
   CanvasRenderingContext2D context;
 
-  RenderSystem(this.screen);
+  RenderSystem(this.screen) : super(Aspect.getAspectForAllOf([Position, Sprite, Color]));
 
   void initialize() {
     positionMapper = new ComponentMapper<Position>(Position, world);
     spriteMapper = new ComponentMapper<Sprite>(Sprite, world);
     colorMapper = new ComponentMapper<Color>(Color, world);
-    context = screen.context2D;
+    context = screen.canvas.context2D;
   }
   
   void processEntity(Entity entity) {
     Color color = colorMapper.get(entity);
     context.setFillColorRgb(color.r, color.g, color.b);
 
-    Position pos = positionMapper.getComponent(entity);
+    Position pos = positionMapper.get(entity);
     num xpos = pos.x-20; // 40x40 rectangles. XXX FIX ME WITH SPRITES OR SOMETHING
     num ypos = pos.y-20;
 

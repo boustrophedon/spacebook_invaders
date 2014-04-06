@@ -5,6 +5,8 @@ class MovementSystem extends EntityProcessingSystem {
   ComponentMapper<Velocity> velocityMapper;
   ComponentMapper<Acceleration> accelerationMapper;
 
+  MovementSystem() : super(Aspect.getAspectForAllOf([Position, Velocity, Acceleration]));
+
   void initialize() {
     positionMapper = new ComponentMapper<Position>(Position, world);
     velocityMapper = new ComponentMapper<Velocity>(Velocity, world);

@@ -32,17 +32,21 @@ class Spacebook {
   Spacebook(CanvasElement canvas) {
     screen = new Screen(canvas);
     world = new World();
+  }
+
+  void start() {
     Entity player = world.createEntity();
     player.addComponent(new Position(screen.width~/2, screen.height~/2));
     player.addComponent(new Velocity(0, 0));
     player.addComponent(new Acceleration(0, 5));
     player.addComponent(new Color(255, 0, 0));
+    player.addComponent(new Sprite());
     player.addToWorld();
     TagManager tagManager = new TagManager();
     tagManager.register(player, TAG_PLAYER);
     world.addManager(tagManager);
 
-    world.addSystem(new InputSystem());
+    world.addSystem(new InputSystem(screen));
     world.addSystem(new MovementSystem());
     world.addSystem(new CollisionSystem());
     world.addSystem(new RenderSystem(screen));
