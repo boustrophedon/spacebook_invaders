@@ -81,7 +81,14 @@ class InputSystem extends IntervalEntitySystem {
 
     if (leftBarrelRolls > 0) {
       leftBarrelRolls -= world.delta;
-      rotation.theta += 5;
+      rotation.theta += 40;
+      print("leftBarrelRolls: ${leftBarrelRolls}");
+      print("rotation: ${rotation.theta}");
+      if (rotation.theta >= 360) {
+        rotation.theta = 0;
+      }
+    } else {
+      rotation.theta = 0;
     }
   }
 
@@ -97,10 +104,13 @@ class InputSystem extends IntervalEntitySystem {
         lastLeft = new DateTime.now().millisecondsSinceEpoch;
       }
       num time = new DateTime.now().millisecondsSinceEpoch;
-      if (time - lastLeft < 100) {
-        leftBarrelRolls = 300;
-        lastLeft = -1;
+      if (time - lastLeft < 500) {
+        print("leftBarrelRolls: ${leftBarrelRolls}");
+        leftBarrelRolls = 600;
       }
+      print("lastLeft: ${lastLeft}");
+      print("time: ${time}");
+      lastLeft = time;
     } else if (keyCode == RIGHT) {
       moveRight = true;
     } else if (keyCode == SPACE) {
@@ -108,7 +118,6 @@ class InputSystem extends IntervalEntitySystem {
     } else if (keyCode == KEY_I) {
       zuckerbergIntensifies = true;
     }
-
   }
 
   void handleKeyUp(KeyboardEvent e) {

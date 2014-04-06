@@ -49,19 +49,20 @@ class RenderSystem extends EntityProcessingSystem {
     Position pos = positionMapper.get(entity);
     Sprite sprite = spriteMapper.get(entity);
     Rotation rotation = rotationMapper.get(entity);
-    num xpos = pos.x-20;
-    num ypos = pos.y-20;
+    num xpos = pos.x-sprite.img.width/2;
+    num ypos = pos.y-sprite.img.height/2;
 
     CanvasElement cv = new CanvasElement();
     cv.width = sprite.img.width;
     cv.height = sprite.img.height;
     CanvasRenderingContext2D cxt = cv.getContext('2d');
+    cxt.rotate(rotation.theta * (math.PI/180));
+    cxt.translate(cv.width/2, cv.height/2);
     cxt.drawImage(sprite.img, 0, 0);
 
-    cxt.rotate(rotation.theta * (math.PI/180));
+    //print("rotation = ${rotation.theta}");
 
-    //context.drawImage(cv, xpos, ypos);
-    context.drawImage(sprite.img, xpos, ypos);
+    context.drawImage(cv, xpos, ypos);
   }
 }
 
