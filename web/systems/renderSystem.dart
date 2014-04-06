@@ -56,9 +56,9 @@ class RenderSystem extends EntityProcessingSystem {
     cv.width = sprite.img.width;
     cv.height = sprite.img.height;
     CanvasRenderingContext2D cxt = cv.getContext('2d');
-    cxt.rotate(rotation.theta * (math.PI/180));
     cxt.translate(cv.width/2, cv.height/2);
-    cxt.drawImage(sprite.img, 0, 0);
+    cxt.rotate(rotation.theta * (math.PI/180));
+    cxt.drawImage(sprite.img, -cv.width/2, -cv.height/2);
 
     //print("rotation = ${rotation.theta}");
 
