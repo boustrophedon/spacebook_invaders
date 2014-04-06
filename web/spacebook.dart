@@ -6,7 +6,12 @@ import 'dart:math';
 
 // import 'package:dartemis/dartemis.dart';
 import "package:dartemis/dartemis_mirrors.dart";
+
+@MirrorsUsed(targets: const [InputSystem, MovementSystem, BackgroundRenderSystem])
+
 import "dart:mirrors";
+
+
 
 part 'screen.dart';
 part 'components.dart';
@@ -37,7 +42,7 @@ class Spacebook {
   void start() {
     Entity player = world.createEntity();
     player.addComponent(new Position(screen.width~/2, screen.height~/2));
-    player.addComponent(new Velocity(0, 1));
+    player.addComponent(new Velocity(0, 0));
     player.addComponent(new Acceleration(0, 0));
     player.addComponent(new Color(255, 0, 0));
     player.addComponent(new Sprite());
@@ -57,7 +62,7 @@ class Spacebook {
   }
 
   void gameLoop(num time) {
-    world.delta = time - lastTime;
+    world.delta = (time - lastTime);
     lastTime = time;
     world.process();
 

@@ -32,15 +32,22 @@ class InputSystem extends IntervalEntitySystem {
     Entity player = tagManager.getEntity(TAG_PLAYER);
     Velocity velocity = velocityMapper.get(player);
 
+    num moveSpeed = 20;
+
     if (moveUp) {
-      velocity.y -= 0.1;
+      velocity.y = -moveSpeed*world.delta;
     } else if (moveDown) {
-      velocity.y += 0.1;
+      velocity.y = moveSpeed*world.delta;
+    }
+      else {
+      velocity.y = 0;
     }
     if (moveLeft) {
-      velocity.x -= 0.1;
+      velocity.x = -moveSpeed*world.delta;
     } else if(moveRight) {
-      velocity.x += 0.1;
+      velocity.x = moveSpeed*world.delta;
+    } else {
+      velocity.x = 0;
     }
   }
 

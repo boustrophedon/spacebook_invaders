@@ -17,10 +17,11 @@ class MovementSystem extends EntityProcessingSystem {
     Position pos = positionMapper.get(entity);
     Velocity vel = velocityMapper.get(entity);
     Acceleration acc = accelerationMapper.get(entity);
-    pos.x += vel.x;
-    pos.y += vel.y;
-    vel.x += acc.x;
-    vel.y += acc.y;
+    num dt = world.delta/1000;
+    pos.x += vel.x*dt;
+    pos.y += vel.y*dt;
+    vel.x += acc.x*dt;
+    vel.y += acc.y*dt;
   }
 }
 
