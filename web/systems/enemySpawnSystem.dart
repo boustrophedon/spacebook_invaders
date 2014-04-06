@@ -15,6 +15,7 @@ class EnemySpawnSystem extends VoidEntitySystem {
     enemy.addComponent(new Acceleration(0,0));
     enemy.addComponent(new Intensity(1, 1, 0));
     enemy.addComponent(new Sprite(zuck_image));
+    enemy.addComponent(new Rotation(0));
     enemy.addToWorld();
 
     tagManager.register(enemy, TAG_ZUCKER);

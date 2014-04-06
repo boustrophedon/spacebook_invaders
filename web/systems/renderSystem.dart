@@ -31,25 +31,37 @@ class BackgroundRenderSystem extends VoidEntitySystem {
 class RenderSystem extends EntityProcessingSystem {
   ComponentMapper<Position> positionMapper;
   ComponentMapper<Sprite> spriteMapper;
+  ComponentMapper<Rotation> rotationMapper;
 
   Screen screen;
   CanvasRenderingContext2D context;
 
-  RenderSystem(this.screen) : super(Aspect.getAspectForAllOf([Position, Sprite]));
+  RenderSystem(this.screen) : super(Aspect.getAspectForAllOf([Position, Sprite, Rotation]));
 
   void initialize() {
     positionMapper = new ComponentMapper<Position>(Position, world);
     spriteMapper = new ComponentMapper<Sprite>(Sprite, world);
+    rotationMapper = new ComponentMapper<Rotation>(Rotation, world);
     context = screen.canvas.context2D;
   }
   
   void processEntity(Entity entity) {
     Position pos = positionMapper.get(entity);
     Sprite sprite = spriteMapper.get(entity);
+    Rotation rotation = rotationMapper.get(entity);
     num xpos = pos.x-20;
     num ypos = pos.y-20;
 
-    context.drawImage(sprite.img, xpos, ypos);
+    CanvasElement cv = new CanvasElement();
+    cv.width = sprite.img.width;
+    cv.height = sprite.img.height;
+    CanvasRenderingContext2D cxt = cv.getContext('2d');
+    cxt.drawImage(sprite.img, 0, 0);
 
+    cxt.rotate(rotation.theta * (math.PI/180));
+
+    //context.drawImage(cv, xpos, ypos);
+    context.drawImage(sprite.img, xpos, ypos);
   }
 }
+

@@ -63,6 +63,7 @@ class Spacebook {
     player.addComponent(new Acceleration(0, 0));
     player.addComponent(new PlayerLaser(5, false, 0)); 
     player.addComponent(new Sprite(player_image));
+    player.addComponent(new Rotation(0));
     player.addToWorld();
     TagManager tagManager = new TagManager();
     tagManager.register(player, TAG_PLAYER);

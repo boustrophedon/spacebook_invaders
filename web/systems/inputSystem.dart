@@ -12,13 +12,20 @@ class InputSystem extends IntervalEntitySystem {
   bool moveUp = false;
   bool moveDown = false;
   bool moveLeft = false;
+  num  lastLeft = -1;
+  num leftBarrelRolls = 0;
+
   bool moveRight = false;
+  num  lastRight = -1;
+  num rightBarrelRolls = 0; 
+
   bool fireLaser = false;
   bool zuckerbergIntensifies = false;
 
   ComponentMapper<Velocity> velocityMapper;
   ComponentMapper<PlayerLaser> laserMapper;
   ComponentMapper<Intensity> intensityMapper;
+  ComponentMapper<Rotation> rotationMapper;
   TagManager tagManager;
 
   CanvasElement canvas;
@@ -38,7 +45,7 @@ class InputSystem extends IntervalEntitySystem {
     Entity player = tagManager.getEntity(TAG_PLAYER);
     Velocity velocity = velocityMapper.get(player);
     PlayerLaser laser = laserMapper.get(player);
-
+    Rotation rotation = rotationMapper.get(player);
 
     Entity zuck = tagManager.getEntity(TAG_ZUCKER);
     Intensity i = intensityMapper.get(zuck);
@@ -72,6 +79,10 @@ class InputSystem extends IntervalEntitySystem {
       zuckerbergIntensifies = false;
     }
 
+    if (leftBarrelRolls > 0) {
+      leftBarrelRolls -= world.delta;
+      rotation.theta += 5;
+    }
   }
 
   void handleKeyDown(KeyboardEvent e) {
@@ -82,6 +93,14 @@ class InputSystem extends IntervalEntitySystem {
       moveDown = true;
     } else if (keyCode == LEFT) {
       moveLeft = true;
+      if (lastLeft < 0) {
+        lastLeft = new DateTime.now().millisecondsSinceEpoch;
+      }
+      num time = new DateTime.now().millisecondsSinceEpoch;
+      if (time - lastLeft < 100) {
+        leftBarrelRolls = 300;
+        lastLeft = -1;
+      }
     } else if (keyCode == RIGHT) {
       moveRight = true;
     } else if (keyCode == SPACE) {

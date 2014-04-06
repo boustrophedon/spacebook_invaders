@@ -37,6 +37,7 @@ class PlayerLaserSystem extends EntityProcessingSystem {
     pew.addComponent(new Acceleration(0, 0));
     pew.addComponent(new Sprite(fb));
     pew.addComponent(new Damage(laser.damage));
+    pew.addComponent(new Rotation(0));
     pew.addToWorld();
   }
 }
