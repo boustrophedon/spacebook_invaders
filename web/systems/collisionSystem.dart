@@ -5,7 +5,9 @@ class CollisionSystem extends EntityProcessingSystem {
   ComponentMapper<Velocity> velocityMapper;
   ComponentMapper<Acceleration> accelerationMapper;
 
-  CollisionSystem() : super(Aspect.getAspectForAllOf([Position, Velocity, Acceleration]));
+  Screen screen;
+
+  CollisionSystem(this.screen) : super(Aspect.getAspectForAllOf([Position, Velocity, Acceleration]));
 
   void initialize() {
     positionMapper = new ComponentMapper<Position>(Position, world);

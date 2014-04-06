@@ -4,7 +4,8 @@ import 'dart:async';
 import 'dart:html';
 import 'dart:math';
 
-import 'package:dartemis/dartemis.dart';
+// import 'package:dartemis/dartemis.dart';
+import "package:dartemis/dartemis_mirrors.dart";
 
 part 'screen.dart';
 part 'components.dart';
@@ -12,9 +13,6 @@ part 'systems/inputSystem.dart';
 part 'systems/collisionSystem.dart';
 part 'systems/movementSystem.dart';
 part 'systems/renderSystem.dart';
-
-World world;
-Screen screen;
 
 const String TAG_PLAYER = "player";
 
@@ -32,13 +30,14 @@ class Spacebook {
   Spacebook(CanvasElement canvas) {
     screen = new Screen(canvas);
     world = new World();
+    lastTime = 0;
   }
 
   void start() {
     Entity player = world.createEntity();
     player.addComponent(new Position(screen.width~/2, screen.height~/2));
-    player.addComponent(new Velocity(0, 0));
-    player.addComponent(new Acceleration(0, 5));
+    player.addComponent(new Velocity(0, 1));
+    player.addComponent(new Acceleration(0, 0));
     player.addComponent(new Color(255, 0, 0));
     player.addComponent(new Sprite());
     player.addToWorld();
@@ -48,7 +47,8 @@ class Spacebook {
 
     world.addSystem(new InputSystem(screen));
     world.addSystem(new MovementSystem());
-    world.addSystem(new CollisionSystem());
+    world.addSystem(new CollisionSystem(screen));
+    world.addSystem(new BackgroundRenderSystem(screen));
     world.addSystem(new RenderSystem(screen));
 
     world.initialize();

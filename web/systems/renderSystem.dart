@@ -1,12 +1,14 @@
 part of spacebook;
 
 class BackgroundRenderSystem extends VoidEntitySystem {
+
+  Screen screen;
   CanvasRenderingContext2D context;
 
   BackgroundRenderSystem(this.screen);
 
   void initialize() {
-    context = screen.context2D;
+    context = screen.canvas.context2D;
   }
 
   void processSystem() {
@@ -15,7 +17,7 @@ class BackgroundRenderSystem extends VoidEntitySystem {
       context.fillStyle = "black";
 
       context.beginPath();
-      context.rect(0, 0, MAXWIDTH, MAXHEIGHT + HUDHEIGHT);
+      context.rect(0, 0, screen.width, screen.height);
       context.closePath();
 
       context.fill();
@@ -48,10 +50,10 @@ class RenderSystem extends EntityProcessingSystem {
     context.setFillColorRgb(color.r, color.g, color.b);
 
     Position pos = positionMapper.get(entity);
-    num xpos = pos.x-20; // 40x40 rectangles. XXX FIX ME WITH SPRITES OR SOMETHING
+    num xpos = pos.x-20;
     num ypos = pos.y-20;
 
-    context.fillRect(xpos, ypos, xpos+40, ypos+40);
+    context.fillRect(xpos, ypos, 40, 40);
 
   }
 }
