@@ -15,3 +15,7 @@ class Acceleration extends Component {
   Acceleration(this.x, this.y);
 }
 
+class Sprite extends Component {
+  ImageElement sprite;
+  Sprite(this.sprite);
+}
