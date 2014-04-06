@@ -6,63 +6,53 @@ import 'dart:math';
 
 import 'package:dartemis/dartemis.dart';
 
+import 'screen.dart';
+import 'systems/collisionSystem.dart';
+import 'systems/movementSystem.dart';
+import 'systems/renderSystem.dart';
+
 World world;
 Screen screen;
 
 void main() {
   CanvasElement canvas = querySelector("#area");
-  screen = new Screen(canvas);
-  world = new World();
-  scheduleMicrotask(screen.start);
+  Spacebook spacebook = new Spacebook(canvas);
+  spacebook.start();
 }
 
-Element notes = querySelector("#fps");
-num fpsAverage;
+class Spacebook {
+  Screen screen;
+  World world;
+  num lastTime;
 
-/// Display the animation's FPS in a div.
-void showFps(num fps) {
-  if (fpsAverage == null) fpsAverage = fps;
-  fpsAverage = fps * 0.05 + fpsAverage * 0.95;
-  notes.text = "${fpsAverage.round()} fps";
-}
+  Spacebook(CanvasElement canvas) {
+    screen = new Screen(canvas);
 
-class Screen {
-  CanvasElement canvas;
-  num width;
-  num height;
+    world = new World();
+    Entity player = world.createEntity();
+    player.addComponent(new Position(screen.width~/2, screen.height~/2));
+    player.addComponent(new Velocity(0, 0));
+    player.addComponent(new Acceleration(0, 5));
+    player.addToWorld();
 
-  num renderTime;
+    world.addSystem(new MovementSystem());
+    world.addSystem(new CollisionSystem());
+    world.addSystem(new RenderSystem(screen));
 
-  Screen(this.canvas);
+    world.initialize();
+    gameLoop(0);
+  }
 
-  void start() {
-    Rectangle rect = canvas.parent.client;
-    width = rect.width;
-    height = rect.height;
-    canvas.width = width;
+  void gameLoop(num time) {
+    world.delta = time - lastTime;
+    lastTime = time;
+    world.process();
+
     requestRedraw();
-  }
-
-  void draw(num _) {
-    num time = new DateTime.now().millisecondsSinceEpoch;
-    if (renderTime != null) showFps(1000 / (time - renderTime));
-    renderTime = time;
-
-    var context = canvas.context2D;
-    drawBackground(context);
-    requestRedraw();
-  }
-
-  void drawBackground(CanvasRenderingContext2D context) {
-    context.clearRect(0, 0, width, height);
-  }
-
-  void drawWorld(CanvasRenderingContext2D context) {
-    // do something with context
   }
 
   void requestRedraw() {
-    window.requestAnimationFrame(draw);
+    window.requestAnimationFrame(gameLoop);
   }
 }
 
