@@ -1,10 +1,10 @@
 part of spacebook;
 
 class InputSystem extends IntervalEntitySystem {
-  static const int UP = 87;
-  static const int DOWN = 83;
-  static const int LEFT = 65;
-  static const int RIGHT = 68;
+  static const int UP = 38; //arrow up
+  static const int DOWN = 40; // arrow down
+  static const int LEFT = 37; // arrow left
+  static const int RIGHT = 39; // arrow right
 
   bool moveUp = false;
   bool moveDown = false;
