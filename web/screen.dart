@@ -1,3 +1,5 @@
+part of spacebook;
+
 class Screen {
   CanvasElement canvas; /* canvas.context2D as CanvasRenderingContext2D */
   num width, height;

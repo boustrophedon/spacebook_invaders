@@ -1,3 +1,5 @@
+part of spacebook;
+
 class CollisionSystem extends EntityProcessingSystem {
   ComponentMapper<Position> positionMapper;
   ComponentMapper<Velocity> velocityMapper;

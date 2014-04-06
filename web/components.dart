@@ -1,4 +1,4 @@
-import 'package:dartemis/dartemis.dart';
+part of spacebook;
 
 class Position extends Component {
   // this is the center of the object

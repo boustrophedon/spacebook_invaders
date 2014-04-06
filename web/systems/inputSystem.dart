@@ -15,9 +15,7 @@ class InputSystem extends IntervalEntitySystem {
   ComponentMapper<Velocity> velocityMapper;
   TagManager tagManager;
 
-  Screen screen;
-
-  InputSystem(this.screen) : super(20, Aspect.getAspectForAllOf([Velocity]));
+  InputSystem() : super(20, Aspect.getAspectForAllOf([Velocity]));
 
   void initialize() {
     window.onKeyDown.listen(handleKeyDown);

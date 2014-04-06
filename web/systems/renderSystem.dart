@@ -1,6 +1,4 @@
-library spacebook;
-
-import 'package:dartemis/dartemis.dart';
+part of spacebook;
 
 class BackgroundRenderSystem extends VoidEntitySystem {
   CanvasRenderingContext2D context;

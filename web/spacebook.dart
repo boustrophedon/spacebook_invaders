@@ -6,10 +6,12 @@ import 'dart:math';
 
 import 'package:dartemis/dartemis.dart';
 
-import 'screen.dart';
-import 'systems/collisionSystem.dart';
-import 'systems/movementSystem.dart';
-import 'systems/renderSystem.dart';
+part 'screen.dart';
+part 'components.dart';
+part 'systems/inputSystem.dart';
+part 'systems/collisionSystem.dart';
+part 'systems/movementSystem.dart';
+part 'systems/renderSystem.dart';
 
 World world;
 Screen screen;
