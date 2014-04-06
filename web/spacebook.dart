@@ -12,10 +12,10 @@ import "package:dartemis/dartemis_mirrors.dart";
 import "dart:mirrors";
 
 
-
 part 'screen.dart';
 part 'components.dart';
 part 'systems/inputSystem.dart';
+part 'systems/enemySpawnSystem.dart';
 part 'systems/collisionSystem.dart';
 part 'systems/movementSystem.dart';
 part 'systems/playerLaserSystem.dart';
@@ -26,7 +26,7 @@ const String TAG_PLAYER = "player";
 void main() {
   CanvasElement canvas = querySelector("#area");
   Spacebook spacebook = new Spacebook(canvas);
-  spacebook.load_images().onLoad.listen((e) => spacebook.start());
+  Future.wait(spacebook.load_images()).then((e) => spacebook.start());
 }
 
 class Spacebook {
@@ -36,6 +36,7 @@ class Spacebook {
 
   String player_facebook;
   ImageElement player_image;
+  ImageElement zuck_image;
 
   Spacebook(CanvasElement canvas) {
     screen = new Screen(canvas);
@@ -45,9 +46,10 @@ class Spacebook {
     player_facebook = 'hcstern'; // obviously fix this.
   }
 
-  ImageElement load_images() {
+  load_images() {
     player_image = new ImageElement(src: 'http://graph.facebook.com/$player_facebook/picture');
-    return player_image; 
+    zuck_image = new ImageElement(src: 'assets/spacebook_invaders/zuck.jpg');
+    return [player_image.onLoad.first, zuck_image.onLoad.first]; 
   }
   void start() {
     Entity player = world.createEntity();
@@ -63,6 +65,7 @@ class Spacebook {
     world.addManager(tagManager);
 
     world.addSystem(new InputSystem(screen));
+    world.addSystem(new EnemySpawnSystem(zuck_image));
     world.addSystem(new PlayerLaserSystem());
     world.addSystem(new MovementSystem());
     world.addSystem(new CollisionSystem(screen));
