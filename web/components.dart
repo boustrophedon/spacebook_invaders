@@ -48,3 +48,7 @@ class Rotation extends Component {
   Rotation(this.theta);
 }
 
+class Health extends Component {
+  num health;
+  Health(this.health);
+}

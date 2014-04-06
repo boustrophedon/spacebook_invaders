@@ -25,6 +25,8 @@ part 'systems/renderSystem.dart';
 const String TAG_PLAYER = "player";
 const String TAG_ZUCKER = "mark";
 
+ImageElement money_image;
+
 void main() {
   CanvasElement canvas = querySelector("#area");
   Spacebook spacebook = new Spacebook(canvas);
@@ -53,6 +55,7 @@ class Spacebook {
   load_images() {
     player_image = new ImageElement(src: 'http://graph.facebook.com/$player_facebook/picture');
     zuck_image = new ImageElement(src: 'assets/spacebook_invaders/zuck.jpg');
+    money_image = new ImageElement(src: 'assets/spacebook_invaders/Dollar.png');
     return [player_image.onLoad.first, zuck_image.onLoad.first]; 
   }
   void start() {

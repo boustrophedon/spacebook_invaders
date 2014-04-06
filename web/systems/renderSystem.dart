@@ -32,6 +32,9 @@ class RenderSystem extends EntityProcessingSystem {
   ComponentMapper<Position> positionMapper;
   ComponentMapper<Sprite> spriteMapper;
   ComponentMapper<Rotation> rotationMapper;
+  ComponentMapper<Health> healthMapper;
+
+  TagManager tagManager;
 
   Screen screen;
   CanvasRenderingContext2D context;
@@ -45,20 +48,21 @@ class RenderSystem extends EntityProcessingSystem {
     context = screen.canvas.context2D;
   }
   
+
   void processEntity(Entity entity) {
     Position pos = positionMapper.get(entity);
     Sprite sprite = spriteMapper.get(entity);
     Rotation rotation = rotationMapper.get(entity);
-    num xpos = pos.x-sprite.img.width/2;
-    num ypos = pos.y-sprite.img.height/2;
+    num xpos = pos.x;//-sprite.img.width/2;
+    num ypos = pos.y;//-sprite.img.height/2;
 
     CanvasElement cv = new CanvasElement();
     cv.width = sprite.img.width;
     cv.height = sprite.img.height;
     CanvasRenderingContext2D cxt = cv.getContext('2d');
-    cxt.rotate(rotation.theta * (math.PI/180));
     cxt.translate(cv.width/2, cv.height/2);
-    cxt.drawImage(sprite.img, 0, 0);
+    cxt.rotate(rotation.theta * (math.PI/180));
+    cxt.drawImage(sprite.img, -cv.width/2, -cv.height/2);
 
     //print("rotation = ${rotation.theta}");
 
