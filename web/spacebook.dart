@@ -7,7 +7,7 @@ import 'dart:math' as math;
 // import 'package:dartemis/dartemis.dart';
 import "package:dartemis/dartemis_mirrors.dart";
 
-@MirrorsUsed(targets: const [InputSystem, MovementSystem, BackgroundRenderSystem, InputSystem, PlayerLaserSystem, CollisionSystem, EnemySpawnSystem, RenderSystem])
+@MirrorsUsed(targets: const [InputSystem, MovementSystem, BackgroundRenderSystem, InputSystem, PlayerLaserSystem, CollisionSystem, EnemySpawnSystem, RenderSystem, MarkZuckerbergSystem])
 
 import "dart:mirrors";
 
@@ -28,7 +28,9 @@ const String TAG_ZUCKER = "mark";
 void main() {
   CanvasElement canvas = querySelector("#area");
   Spacebook spacebook = new Spacebook(canvas);
-  Future.wait(spacebook.load_images()).then((e) => spacebook.start());
+  spacebook.load_images();
+  new Future.delayed(const Duration(seconds: 3), () => spacebook.start());
+  //Future.wait(spacebook.load_images()).then((e) => spacebook.start());
 }
 
 class Spacebook {
