@@ -55,15 +55,11 @@ class InputSystem extends IntervalEntitySystem {
     int keyCode = e.keyCode;
     if (keyCode == UP) {
       moveUp = true;
-      moveDown = false;
     } else if (keyCode == DOWN) {
-      moveUp = false;
       moveDown = true;
     } else if (keyCode == LEFT) {
       moveLeft = true;
-      moveRight = false;
     } else if (keyCode == RIGHT) {
-      moveLeft = false;
       moveRight = true;
     }
   }

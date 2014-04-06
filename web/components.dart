@@ -1,5 +1,10 @@
 part of spacebook;
 
+class Species extends Component {
+  String name;
+  Species(this.name);
+}
+
 class Position extends Component {
   // this is the center of the object
   num x, y;
@@ -22,7 +27,6 @@ class Color extends Component {
 }
 
 class Sprite extends Component {
-  //ImageElement sprite;
-  //Sprite(this.sprite);
-  Sprite();
+  ImageElement img;
+  Sprite(this.img);
 }

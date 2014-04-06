@@ -45,7 +45,7 @@ class Spacebook {
     player.addComponent(new Velocity(0, 0));
     player.addComponent(new Acceleration(0, 0));
     player.addComponent(new Color(255, 0, 0));
-    player.addComponent(new Sprite());
+    player.addComponent(new Sprite(new ImageElement(src: 'assets/spacebook_invaders/propic.jpg'))); // this should be requested via facebook api
     player.addToWorld();
     TagManager tagManager = new TagManager();
     tagManager.register(player, TAG_PLAYER);
